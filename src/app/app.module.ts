@@ -1,3 +1,5 @@
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -11,6 +13,7 @@ import { UserListComponent } from './user/user-list/user-list.component';
     AppComponent, MyComponent, UserListComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule
   ],
