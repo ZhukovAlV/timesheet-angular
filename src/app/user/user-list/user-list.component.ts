@@ -14,8 +14,9 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     const userId: number = 1;
-    this.userService.findByIdUsingGET(userId).subscribe(user => this.user = user);
-    console.log(this.user);
+    this.userService.findByIdUsingGET(userId).subscribe({
+      next: user => this.user = user
+    });
+   // console.log(this.user);
   }
-
 }
