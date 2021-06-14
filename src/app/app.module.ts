@@ -6,15 +6,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './user/user-list/user-list.component';
+import { SystemModule } from './system/system.module';
 
 @NgModule({
   declarations: [
-    AppComponent, UserListComponent
+    AppComponent, 
+    UserListComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SystemModule
   ],
   providers: [],
   bootstrap: [AppComponent]
