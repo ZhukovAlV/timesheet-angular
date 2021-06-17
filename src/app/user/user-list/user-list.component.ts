@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IterableUser } from 'src/app/client/user/user-client/models/iterable-user';
 import { UserControllerService } from 'src/app/client/user/user-client/services';
-import { User } from 'src/app/client/user/user-client/models';
 
 @Component({
   selector: 'app-user-list',
@@ -8,12 +8,11 @@ import { User } from 'src/app/client/user/user-client/models';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  users: List<User>;
+  users!: IterableUser;
 
   constructor(private userService: UserControllerService) { }
 
   ngOnInit(): void {
-    const userId: number = 1;
     this.userService.findAllUsingGET.subscribe({
       next: users => this.users = users
     });
