@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/client/user/user-client/models';
 import { UserControllerService } from 'src/app/client/user/user-client/services';
+import { User } from 'src/app/client/user/user-client/models';
 
 @Component({
   selector: 'app-user-list',
@@ -8,14 +8,14 @@ import { UserControllerService } from 'src/app/client/user/user-client/services'
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  user!: User;
+  users: List<User>;
 
   constructor(private userService: UserControllerService) { }
 
   ngOnInit(): void {
     const userId: number = 1;
-    this.userService.findByIdUsingGET(userId).subscribe({
-      next: user => this.user = user
+    this.userService.findAllUsingGET.subscribe({
+      next: users => this.users = users
     });
    // console.log(this.user);
   }

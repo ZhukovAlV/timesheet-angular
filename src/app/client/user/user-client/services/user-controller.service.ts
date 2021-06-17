@@ -8,6 +8,8 @@ import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { User } from '../models/user';
+import { ResponseEntity } from '../models/response-entity';
+import { OptionalUser } from '../models/optional-user';
 
 /**
  * User Controller
@@ -20,7 +22,7 @@ class UserControllerService extends __BaseService {
   static readonly findAllUsingGETPath = '/user/all';
   static readonly deleteUserUsingDELETEPath = '/user/delete/{id}';
   static readonly updateUserUsingPUTPath = '/user/update';
-  static readonly findByIdUsingGETPath = '/user/{id}';
+  static readonly findByIdUsingGETPath = '/user/{userId}';
 
   constructor(
     config: __Configuration,
@@ -31,26 +33,14 @@ class UserControllerService extends __BaseService {
 
   /**
    * addUser
-   * @param params The `UserControllerService.AddUserUsingPOSTParams` containing the following parameters:
-   *
-   * - `userId`:
-   *
-   * - `surname`:
-   *
-   * - `name`:
-   *
-   * - `login`:
-   *
+   * @param user user
    * @return OK
    */
-  addUserUsingPOSTResponse(params: UserControllerService.AddUserUsingPOSTParams): __Observable<__StrictHttpResponse<User>> {
+  addUserUsingPOSTResponse(user: User): __Observable<__StrictHttpResponse<User>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    if (params.userId != null) __params = __params.set('userId', params.userId.toString());
-    if (params.surname != null) __params = __params.set('surname', params.surname.toString());
-    if (params.name != null) __params = __params.set('name', params.name.toString());
-    if (params.login != null) __params = __params.set('login', params.login.toString());
+    __body = user;
     let req = new HttpRequest<any>(
       'POST',
       this.rootUrl + `/user/add`,
@@ -70,20 +60,11 @@ class UserControllerService extends __BaseService {
   }
   /**
    * addUser
-   * @param params The `UserControllerService.AddUserUsingPOSTParams` containing the following parameters:
-   *
-   * - `userId`:
-   *
-   * - `surname`:
-   *
-   * - `name`:
-   *
-   * - `login`:
-   *
+   * @param user user
    * @return OK
    */
-  addUserUsingPOST(params: UserControllerService.AddUserUsingPOSTParams): __Observable<User> {
-    return this.addUserUsingPOSTResponse(params).pipe(
+  addUserUsingPOST(user: User): __Observable<User> {
+    return this.addUserUsingPOSTResponse(user).pipe(
       __map(_r => _r.body as User)
     );
   }
@@ -128,7 +109,7 @@ class UserControllerService extends __BaseService {
    * @param id id
    * @return OK
    */
-  deleteUserUsingDELETEResponse(id: number): __Observable<__StrictHttpResponse<{[key: string]: boolean}>> {
+  deleteUserUsingDELETEResponse(id: number): __Observable<__StrictHttpResponse<ResponseEntity>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -146,7 +127,7 @@ class UserControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<{[key: string]: boolean}>;
+        return _r as __StrictHttpResponse<ResponseEntity>;
       })
     );
   }
@@ -155,34 +136,22 @@ class UserControllerService extends __BaseService {
    * @param id id
    * @return OK
    */
-  deleteUserUsingDELETE(id: number): __Observable<{[key: string]: boolean}> {
+  deleteUserUsingDELETE(id: number): __Observable<ResponseEntity> {
     return this.deleteUserUsingDELETEResponse(id).pipe(
-      __map(_r => _r.body as {[key: string]: boolean})
+      __map(_r => _r.body as ResponseEntity)
     );
   }
 
   /**
    * updateUser
-   * @param params The `UserControllerService.UpdateUserUsingPUTParams` containing the following parameters:
-   *
-   * - `userId`:
-   *
-   * - `surname`:
-   *
-   * - `name`:
-   *
-   * - `login`:
-   *
+   * @param user user
    * @return OK
    */
-  updateUserUsingPUTResponse(params: UserControllerService.UpdateUserUsingPUTParams): __Observable<__StrictHttpResponse<User>> {
+  updateUserUsingPUTResponse(user: User): __Observable<__StrictHttpResponse<User>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    if (params.userId != null) __params = __params.set('userId', params.userId.toString());
-    if (params.surname != null) __params = __params.set('surname', params.surname.toString());
-    if (params.name != null) __params = __params.set('name', params.name.toString());
-    if (params.login != null) __params = __params.set('login', params.login.toString());
+    __body = user;
     let req = new HttpRequest<any>(
       'PUT',
       this.rootUrl + `/user/update`,
@@ -202,37 +171,28 @@ class UserControllerService extends __BaseService {
   }
   /**
    * updateUser
-   * @param params The `UserControllerService.UpdateUserUsingPUTParams` containing the following parameters:
-   *
-   * - `userId`:
-   *
-   * - `surname`:
-   *
-   * - `name`:
-   *
-   * - `login`:
-   *
+   * @param user user
    * @return OK
    */
-  updateUserUsingPUT(params: UserControllerService.UpdateUserUsingPUTParams): __Observable<User> {
-    return this.updateUserUsingPUTResponse(params).pipe(
+  updateUserUsingPUT(user: User): __Observable<User> {
+    return this.updateUserUsingPUTResponse(user).pipe(
       __map(_r => _r.body as User)
     );
   }
 
   /**
    * findById
-   * @param id id
+   * @param userId userId
    * @return OK
    */
-  findByIdUsingGETResponse(id: number): __Observable<__StrictHttpResponse<User>> {
+  findByIdUsingGETResponse(userId: number): __Observable<__StrictHttpResponse<OptionalUser>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `/user/${encodeURIComponent(String(id))}`,
+      this.rootUrl + `/user/${encodeURIComponent(String(userId))}`,
       __body,
       {
         headers: __headers,
@@ -243,43 +203,23 @@ class UserControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<User>;
+        return _r as __StrictHttpResponse<OptionalUser>;
       })
     );
   }
   /**
    * findById
-   * @param id id
+   * @param userId userId
    * @return OK
    */
-  findByIdUsingGET(id: number): __Observable<User> {
-    return this.findByIdUsingGETResponse(id).pipe(
-      __map(_r => _r.body as User)
+  findByIdUsingGET(userId: number): __Observable<OptionalUser> {
+    return this.findByIdUsingGETResponse(userId).pipe(
+      __map(_r => _r.body as OptionalUser)
     );
   }
 }
 
 module UserControllerService {
-
-  /**
-   * Parameters for addUserUsingPOST
-   */
-  export interface AddUserUsingPOSTParams {
-    userId?: number;
-    surname?: string;
-    name?: string;
-    login?: string;
-  }
-
-  /**
-   * Parameters for updateUserUsingPUT
-   */
-  export interface UpdateUserUsingPUTParams {
-    userId?: number;
-    surname?: string;
-    name?: string;
-    login?: string;
-  }
 }
 
 export { UserControllerService }

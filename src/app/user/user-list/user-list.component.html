@@ -1,4 +1,6 @@
 <h1>Список пользователей</h1>
-
-{{user.userId}}<br/>
-{{user.login}}
+<ul class="users">
+    <li *ngFor="let user of users">
+        <span class="badge">{{user.userId}}</span>{{user.login}}
+    </li>
+</ul>
