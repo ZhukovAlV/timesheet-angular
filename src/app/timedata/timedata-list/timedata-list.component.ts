@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IterableTimeData } from 'src/app/client/timedata/timedata-client/models';
+import { TimeDataControllerService } from 'src/app/client/timedata/timedata-client/services';
 
 @Component({
   selector: 'app-timedata-list',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./timedata-list.component.css']
 })
 export class TimedataListComponent implements OnInit {
+  timeDatas!: IterableTimeData;
 
-  constructor() { }
+  constructor(private timeDataService: TimeDataControllerService) { }
 
   ngOnInit(): void {
+    this.timeDataService.findAllUsingGET.subscribe({
+      next: timeDatas => this.timeDatas = timeDatas
+    });
   }
 
 }
