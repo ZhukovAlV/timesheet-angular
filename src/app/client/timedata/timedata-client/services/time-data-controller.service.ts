@@ -7,8 +7,8 @@ import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-respo
 import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
-import { TimeData } from '../models/time-data';
 import { IterableTimeData } from '../models/iterable-time-data';
+import { TimeData } from '../models/time-data';
 import { ResponseEntity } from '../models/response-entity';
 
 /**
@@ -18,10 +18,10 @@ import { ResponseEntity } from '../models/response-entity';
   providedIn: 'root',
 })
 class TimeDataControllerService extends __BaseService {
-  static readonly addTimeDataUsingPOSTPath = '/timedata/add';
-  static readonly findAllUsingGETPath = '/timedata/all';
-  static readonly deleteTimeDataUsingDELETEPath = '/timedata/delete/{timeDataId}';
-  static readonly updateTimeDataUsingPUTPath = '/timedata/update';
+  static readonly findAllUsingGETPath = '/timedata';
+  static readonly addTimeDataUsingPOSTPath = '/timedata';
+  static readonly updateTimeDataUsingPUTPath = '/timedata';
+  static readonly deleteTimeDataUsingDELETEPath = '/timedata/{timeDataId}';
   static readonly findByUserIdUsingGETPath = '/timedata/{userId}';
 
   constructor(
@@ -29,6 +29,41 @@ class TimeDataControllerService extends __BaseService {
     http: HttpClient
   ) {
     super(config, http);
+  }
+
+  /**
+   * findAll
+   * @return OK
+   */
+  findAllUsingGETResponse(): __Observable<__StrictHttpResponse<IterableTimeData>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/timedata`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<IterableTimeData>;
+      })
+    );
+  }
+  /**
+   * findAll
+   * @return OK
+   */
+  findAllUsingGET(): __Observable<IterableTimeData> {
+    return this.findAllUsingGETResponse().pipe(
+      __map(_r => _r.body as IterableTimeData)
+    );
   }
 
   /**
@@ -43,7 +78,7 @@ class TimeDataControllerService extends __BaseService {
     __body = timeData;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/timedata/add`,
+      this.rootUrl + `/timedata`,
       __body,
       {
         headers: __headers,
@@ -70,79 +105,6 @@ class TimeDataControllerService extends __BaseService {
   }
 
   /**
-   * findAll
-   * @return OK
-   */
-  findAllUsingGETResponse(): __Observable<__StrictHttpResponse<IterableTimeData>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `/timedata/all`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<IterableTimeData>;
-      })
-    );
-  }
-  /**
-   * findAll
-   * @return OK
-   */
-  findAllUsingGET(): __Observable<IterableTimeData> {
-    return this.findAllUsingGETResponse().pipe(
-      __map(_r => _r.body as IterableTimeData)
-    );
-  }
-
-  /**
-   * deleteTimeData
-   * @param timeDataId timeDataId
-   * @return OK
-   */
-  deleteTimeDataUsingDELETEResponse(timeDataId: number): __Observable<__StrictHttpResponse<ResponseEntity>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'DELETE',
-      this.rootUrl + `/timedata/delete/${encodeURIComponent(String(timeDataId))}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<ResponseEntity>;
-      })
-    );
-  }
-  /**
-   * deleteTimeData
-   * @param timeDataId timeDataId
-   * @return OK
-   */
-  deleteTimeDataUsingDELETE(timeDataId: number): __Observable<ResponseEntity> {
-    return this.deleteTimeDataUsingDELETEResponse(timeDataId).pipe(
-      __map(_r => _r.body as ResponseEntity)
-    );
-  }
-
-  /**
    * updateTimeData
    * @param timeData timeData
    * @return OK
@@ -154,7 +116,7 @@ class TimeDataControllerService extends __BaseService {
     __body = timeData;
     let req = new HttpRequest<any>(
       'PUT',
-      this.rootUrl + `/timedata/update`,
+      this.rootUrl + `/timedata`,
       __body,
       {
         headers: __headers,
@@ -177,6 +139,44 @@ class TimeDataControllerService extends __BaseService {
   updateTimeDataUsingPUT(timeData: TimeData): __Observable<TimeData> {
     return this.updateTimeDataUsingPUTResponse(timeData).pipe(
       __map(_r => _r.body as TimeData)
+    );
+  }
+
+  /**
+   * deleteTimeData
+   * @param timeDataId timeDataId
+   * @return OK
+   */
+  deleteTimeDataUsingDELETEResponse(timeDataId: number): __Observable<__StrictHttpResponse<ResponseEntity>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `/timedata/${encodeURIComponent(String(timeDataId))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<ResponseEntity>;
+      })
+    );
+  }
+  /**
+   * deleteTimeData
+   * @param timeDataId timeDataId
+   * @return OK
+   */
+  deleteTimeDataUsingDELETE(timeDataId: number): __Observable<ResponseEntity> {
+    return this.deleteTimeDataUsingDELETEResponse(timeDataId).pipe(
+      __map(_r => _r.body as ResponseEntity)
     );
   }
 
