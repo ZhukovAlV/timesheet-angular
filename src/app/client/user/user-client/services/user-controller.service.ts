@@ -7,9 +7,10 @@ import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-respo
 import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
+import { IterableUser } from '../models/iterable-user';
 import { User } from '../models/user';
-import { ResponseEntity } from '../models/response-entity';
 import { OptionalUser } from '../models/optional-user';
+import { ResponseEntity } from '../models/response-entity';
 
 /**
  * User Controller
@@ -21,8 +22,8 @@ class UserControllerService extends __BaseService {
   static readonly findAllUsingGETPath = '/user';
   static readonly addUserUsingPOSTPath = '/user';
   static readonly updateUserUsingPUTPath = '/user';
-  static readonly deleteUserUsingDELETEPath = '/user/{id}';
   static readonly findByIdUsingGETPath = '/user/{userId}';
+  static readonly deleteUserUsingDELETEPath = '/user/{userId}';
 
   constructor(
     config: __Configuration,
@@ -35,7 +36,7 @@ class UserControllerService extends __BaseService {
    * findAll
    * @return OK
    */
-  findAllUsingGETResponse(): __Observable<__StrictHttpResponse<Array<User>>> {
+  findAllUsingGETResponse(): __Observable<__StrictHttpResponse<IterableUser>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -52,7 +53,7 @@ class UserControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<User>>;
+        return _r as __StrictHttpResponse<IterableUser>;
       })
     );
   }
@@ -60,9 +61,9 @@ class UserControllerService extends __BaseService {
    * findAll
    * @return OK
    */
-  findAllUsingGET(): __Observable<Array<User>> {
+  findAllUsingGET(): __Observable<IterableUser> {
     return this.findAllUsingGETResponse().pipe(
-      __map(_r => _r.body as Array<User>)
+      __map(_r => _r.body as IterableUser)
     );
   }
 
@@ -143,44 +144,6 @@ class UserControllerService extends __BaseService {
   }
 
   /**
-   * deleteUser
-   * @param id id
-   * @return OK
-   */
-  deleteUserUsingDELETEResponse(id: number): __Observable<__StrictHttpResponse<ResponseEntity>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'DELETE',
-      this.rootUrl + `/user/${encodeURIComponent(String(id))}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<ResponseEntity>;
-      })
-    );
-  }
-  /**
-   * deleteUser
-   * @param id id
-   * @return OK
-   */
-  deleteUserUsingDELETE(id: number): __Observable<ResponseEntity> {
-    return this.deleteUserUsingDELETEResponse(id).pipe(
-      __map(_r => _r.body as ResponseEntity)
-    );
-  }
-
-  /**
    * findById
    * @param userId userId
    * @return OK
@@ -215,6 +178,44 @@ class UserControllerService extends __BaseService {
   findByIdUsingGET(userId: number): __Observable<OptionalUser> {
     return this.findByIdUsingGETResponse(userId).pipe(
       __map(_r => _r.body as OptionalUser)
+    );
+  }
+
+  /**
+   * deleteUser
+   * @param userId userId
+   * @return OK
+   */
+  deleteUserUsingDELETEResponse(userId: number): __Observable<__StrictHttpResponse<ResponseEntity>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `/user/${encodeURIComponent(String(userId))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<ResponseEntity>;
+      })
+    );
+  }
+  /**
+   * deleteUser
+   * @param userId userId
+   * @return OK
+   */
+  deleteUserUsingDELETE(userId: number): __Observable<ResponseEntity> {
+    return this.deleteUserUsingDELETEResponse(userId).pipe(
+      __map(_r => _r.body as ResponseEntity)
     );
   }
 }

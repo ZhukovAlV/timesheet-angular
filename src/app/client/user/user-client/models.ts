@@ -1,3 +1,4 @@
+export { IterableUser } from './models/iterable-user';
 export { Link } from './models/link';
 export { ModelAndView } from './models/model-and-view';
 export { OptionalUser } from './models/optional-user';

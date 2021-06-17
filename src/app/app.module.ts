@@ -7,11 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { SystemModule } from './system/system.module';
+import { TimedataListComponent } from './timedata/timedata-list/timedata-list.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
-    UserListComponent
+    UserListComponent, TimedataListComponent
   ],
   imports: [
     HttpClientModule,
