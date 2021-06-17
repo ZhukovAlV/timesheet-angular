@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IterableUser } from 'src/app/client/user/user-client/models/iterable-user';
 import { UserControllerService } from 'src/app/client/user/user-client/services';
 
@@ -8,13 +9,13 @@ import { UserControllerService } from 'src/app/client/user/user-client/services'
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  users!: IterableUser;
+  users!: Observable<IterableUser>;
 
   constructor(private userService: UserControllerService) { }
 
   ngOnInit(): void {
     this.userService.findAllUsingGET.subscribe({
-      next: users => this.users = users
+      next: (users:any) => this.users = users
     });
    // console.log(this.user);
   }
