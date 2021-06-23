@@ -13,8 +13,8 @@ export class TimedataListComponent implements OnInit {
   constructor(private timeDataService: TimeDataControllerService) { }
 
   ngOnInit(): void {
-    this.timeDataService.findAllUsingGET.subscribe()({
-      next: (timeDatas:any) => this.timeDatas = timeDatas
+    this.timeDataService.findAllUsingGET().subscribe({
+      next: timeDatas => this.timeDatas = timeDatas
     });
   }
 
