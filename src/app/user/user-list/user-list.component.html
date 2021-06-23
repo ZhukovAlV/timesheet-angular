@@ -1,7 +1,8 @@
 <h1>Список пользователей</h1>
 
-<ul class="users">
-    <li *ngFor="let user of users">
-        <span class="badge">{{user.userId}}</span>{{user.login}}
-    </li>
-</ul>
+<div *ngFor="let user of users | keyvalue">
+    <td>{{user.value["userId"]}}</td>
+    <td>{{user.value["login"]}}</td>
+    <td>{{user.value["name"]}}</td>
+    <td>{{user.value["surname"]}}</td>
+</div>
