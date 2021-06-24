@@ -3,10 +3,10 @@
 <table class="table table-striped">
     <tr>
       <th>ID</th>
-      <th>USERID</th>
-      <th>HOUR</th>
-      <th>TYPE</th>
-      <th>DATE</th>
+      <th>ID Пользователя</th>
+      <th>Часы</th>
+      <th>Тип</th>
+      <th>Дата</th>
     </tr>
     <tr *ngFor="let timedata of timeDatas | keyvalue">
         <td>{{timedata.value["id"]}}</td>
