@@ -1,7 +1,18 @@
-<p>timedata-list works!</p>
+<h1>Табель пользователей</h1>
 
-<ul class="timeDatas">
-    <li *ngFor="let timedata of timeDatas | keyvalue">
-        <span class="badge">{{timedata.value["userId"]}}</span>
-    </li>
-</ul>
+<table>
+    <tr>
+      <th>ID</th>
+      <th>USERID</th>
+      <th>HOUR</th>
+      <th>TYPE</th>
+      <th>DATE</th>
+    </tr>
+    <tr *ngFor="let timedata of timeDatas | keyvalue">
+        <td>{{timedata.value["id"]}}</td>
+        <td>{{timedata.value["userId"]}}</td>
+        <td>{{timedata.value["hour"]}}</td>
+        <td>{{timedata.value["type"]}}</td>
+        <td>{{timedata.value["date"]}}</td>
+    </tr>
+ </table>

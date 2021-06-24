@@ -1,8 +1,16 @@
 <h1>Список пользователей</h1>
 
-<div *ngFor="let user of users | keyvalue">
-    <td>{{user.value["userId"]}}</td>
-    <td>{{user.value["login"]}}</td>
-    <td>{{user.value["name"]}}</td>
-    <td>{{user.value["surname"]}}</td>
-</div>
+<table>
+    <tr>
+      <th>ID</th>
+      <th>LOGIN</th>
+      <th>FIRSTNAME</th>
+      <th>LASTNAME</th>
+    </tr>
+    <tr *ngFor="let user of users | keyvalue">
+        <td>{{user.value["userId"]}}</td>
+        <td>{{user.value["login"]}}</td>
+        <td>{{user.value["name"]}}</td>
+        <td>{{user.value["surname"]}}</td>
+    </tr>
+</table>
