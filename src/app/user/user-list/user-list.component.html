@@ -3,14 +3,16 @@
 <table class="table table-striped">
     <tr>
       <th>ID</th>
-      <th>LOGIN</th>
-      <th>FIRSTNAME</th>
-      <th>LASTNAME</th>
+      <th>Логин</th>
+      <th>Имя</th>
+      <th>Фамилия</th>
+      <th class="text-lg-center">Табель</th>
     </tr>
     <tr *ngFor="let user of users | keyvalue">
         <td>{{user.value["userId"]}}</td>
         <td>{{user.value["login"]}}</td>
         <td>{{user.value["name"]}}</td>
         <td>{{user.value["surname"]}}</td>
+        <td class="text-lg-center"><a routerLink="/system/timedata/{{user.value['userId']}}" class="btn btn-primary-outline">Открыть</a></td>
     </tr>
 </table>

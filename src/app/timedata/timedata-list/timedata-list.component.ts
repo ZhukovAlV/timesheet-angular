@@ -18,7 +18,8 @@ export class TimedataListComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.userId = Number(params.get('userId'));
     })
-    this.timeDataService.findAllUsingGET().subscribe({
+    
+    this.timeDataService.findByUserIdUsingGET(this.userId).subscribe({
       next: timeDatas => this.timeDatas = timeDatas
     });
   }
