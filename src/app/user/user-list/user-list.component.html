@@ -10,9 +10,14 @@
     </tr>
     <tr *ngFor="let user of users | keyvalue">
         <td>{{user.value["userId"]}}</td>
+        <td>{{user.value["personalNumber"]}}</td>
+        <td>{{user.value["firstName"]}}</td>
+        <td>{{user.value["lastName"]}}</td>
+        <td>{{user.value["middleName"]}}</td>
         <td>{{user.value["login"]}}</td>
-        <td>{{user.value["name"]}}</td>
-        <td>{{user.value["surname"]}}</td>
+        <td>{{user.value["positionEng"]}}</td>
+        <td>{{user.value["positionRus"]}}</td>
+        <td>{{user.value["accessLevel"]}}</td>
         <td class="text-lg-center"><a routerLink="/system/timedata/{{user.value['userId']}}" class="btn btn-primary-outline">Открыть</a></td>
     </tr>
 </table>
