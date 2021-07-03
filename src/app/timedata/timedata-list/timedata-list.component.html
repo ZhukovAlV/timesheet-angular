@@ -1,1 +1,11 @@
-<p>timedata-list works!</p>
+<h1>Список трудодней</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="text" class="form-control" formControlName="email">
+    </div>
+
+    <button class="btn btn-success" type="submit">Сохранить</button>
+  </form>

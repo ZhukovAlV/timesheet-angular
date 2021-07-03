@@ -9,6 +9,7 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { SystemModule } from './system/system.module';
 import { TimedataListComponent } from './timedata/timedata-list/timedata-list.component';
 import { OrgdataListComponent } from './orgdata/orgdata-list/orgdata-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { OrgdataListComponent } from './orgdata/orgdata-list/orgdata-list.compon
   ],
   imports: [
     HttpClientModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     SystemModule
