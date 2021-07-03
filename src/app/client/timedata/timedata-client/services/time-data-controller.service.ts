@@ -9,7 +9,6 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { IterableTimeData } from '../models/iterable-time-data';
 import { TimeData } from '../models/time-data';
-import { ResponseEntity } from '../models/response-entity';
 
 /**
  * Time Data Controller
@@ -23,6 +22,7 @@ class TimeDataControllerService extends __BaseService {
   static readonly updateTimeDataUsingPUTPath = '/timedata';
   static readonly deleteTimeDataUsingDELETEPath = '/timedata/{timeDataId}';
   static readonly findByUserIdUsingGETPath = '/timedata/{userId}';
+  static readonly findByYearAndMonthUsingGETPath = '/timedata/{userId}/{year}/{month}';
 
   constructor(
     config: __Configuration,
@@ -147,7 +147,7 @@ class TimeDataControllerService extends __BaseService {
    * @param timeDataId timeDataId
    * @return OK
    */
-  deleteTimeDataUsingDELETEResponse(timeDataId: number): __Observable<__StrictHttpResponse<ResponseEntity>> {
+  deleteTimeDataUsingDELETEResponse(timeDataId: number): __Observable<__StrictHttpResponse<{}>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -165,7 +165,7 @@ class TimeDataControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<ResponseEntity>;
+        return _r as __StrictHttpResponse<{}>;
       })
     );
   }
@@ -174,9 +174,9 @@ class TimeDataControllerService extends __BaseService {
    * @param timeDataId timeDataId
    * @return OK
    */
-  deleteTimeDataUsingDELETE(timeDataId: number): __Observable<ResponseEntity> {
+  deleteTimeDataUsingDELETE(timeDataId: number): __Observable<{}> {
     return this.deleteTimeDataUsingDELETEResponse(timeDataId).pipe(
-      __map(_r => _r.body as ResponseEntity)
+      __map(_r => _r.body as {})
     );
   }
 
@@ -217,9 +217,84 @@ class TimeDataControllerService extends __BaseService {
       __map(_r => _r.body as IterableTimeData)
     );
   }
+
+  /**
+   * findByYearAndMonth
+   * @param params The `TimeDataControllerService.FindByYearAndMonthUsingGETParams` containing the following parameters:
+   *
+   * - `year`: year
+   *
+   * - `userId`: userId
+   *
+   * - `month`: month
+   *
+   * @return OK
+   */
+  findByYearAndMonthUsingGETResponse(params: TimeDataControllerService.FindByYearAndMonthUsingGETParams): __Observable<__StrictHttpResponse<{[key: string]: TimeData}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/timedata/${encodeURIComponent(String(params.userId))}/${encodeURIComponent(String(params.year))}/${encodeURIComponent(String(params.month))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{[key: string]: TimeData}>;
+      })
+    );
+  }
+  /**
+   * findByYearAndMonth
+   * @param params The `TimeDataControllerService.FindByYearAndMonthUsingGETParams` containing the following parameters:
+   *
+   * - `year`: year
+   *
+   * - `userId`: userId
+   *
+   * - `month`: month
+   *
+   * @return OK
+   */
+  findByYearAndMonthUsingGET(params: TimeDataControllerService.FindByYearAndMonthUsingGETParams): __Observable<{[key: string]: TimeData}> {
+    return this.findByYearAndMonthUsingGETResponse(params).pipe(
+      __map(_r => _r.body as {[key: string]: TimeData})
+    );
+  }
 }
 
 module TimeDataControllerService {
+
+  /**
+   * Parameters for findByYearAndMonthUsingGET
+   */
+  export interface FindByYearAndMonthUsingGETParams {
+
+    /**
+     * year
+     */
+    year: number;
+
+    /**
+     * userId
+     */
+    userId: number;
+
+    /**
+     * month
+     */
+    month: number;
+  }
 }
 
 export { TimeDataControllerService }
